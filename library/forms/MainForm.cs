@@ -13,6 +13,8 @@ namespace library.forms
             timerTime.Start();
             PanelWidth = panelLeft.Width;
             isCollapsed = false;
+            userControls.UC_Main gb = new userControls.UC_Main();
+            AddControlsToPanel(gb);
         }
 
         private void Button10_Click(object sender, EventArgs e)
@@ -24,7 +26,7 @@ namespace library.forms
         {
             if (isCollapsed)
             {
-                panelLeft.Width += 10;
+                panelLeft.Width += 155;
                 if (panelLeft.Width >= PanelWidth)
                 {
                     timer1.Stop();
@@ -34,7 +36,7 @@ namespace library.forms
             }
             else
             {
-                panelLeft.Width -= 10;
+                panelLeft.Width -= 155;
                 if (panelLeft.Width <= 60)
                 {
                     timer1.Stop();
@@ -44,19 +46,31 @@ namespace library.forms
             }
         }
 
-        private void Button9_Click(object sender, EventArgs e)
+        private void AddControlsToPanel(Control c)
         {
-            timer1.Start();
+            c.Dock = DockStyle.Fill;
+            panelControls.Controls.Clear();
+            panelControls.Controls.Add(c);
         }
+
         private void moveSidePanel(Control btn)
         {
             panelSide.Top = btn.Top;
             panelSide.Height = btn.Height;
         }
 
+        private void Button5_Click(object sender, EventArgs e) // Главная
+        {
+            moveSidePanel(button5);
+            userControls.UC_Main mn = new userControls.UC_Main();
+            AddControlsToPanel(mn);
+        }
+
         private void Button1_Click(object sender, EventArgs e) // Выдача
         {
             moveSidePanel(button1);
+            userControls.UC_GiveBook gb = new userControls.UC_GiveBook();
+            AddControlsToPanel(gb);
         }
 
         private void Button2_Click(object sender, EventArgs e) // Получение
@@ -69,15 +83,20 @@ namespace library.forms
             moveSidePanel(button3);
         }
 
+        private void Button4_Click(object sender, EventArgs e) // Отчет
+        {
+            moveSidePanel(button4);
+        }
+
+        private void Button9_Click(object sender, EventArgs e) // Выход
+        {
+            timer1.Start();
+        }
+
         private void TimerTime_Tick(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
             labelTime.Text = dt.ToString("HH:MM:ss");
-        }
-
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            moveSidePanel(button4);
         }
     }
 }
